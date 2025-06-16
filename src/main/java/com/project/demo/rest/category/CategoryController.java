@@ -1,6 +1,7 @@
 package com.project.demo.rest.category;
 
 import com.project.demo.logic.entity.category.Category;
+import com.project.demo.logic.entity.category.CategoryRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -11,32 +12,36 @@ import java.util.List;
 @RequestMapping("/categories")
 public class CategoryController {
 
-    private CategoryService categoryService;
+    private final CategoryRepository categoryRepository;
+
+    public CategoryController(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
 
     @GetMapping
     @PreAuthorize("hasAnyRole('SUPER_ADMIN', 'USER')")
     public List<Category> listar() {
-        return categoryService.findAll();
+        return categoryRepository.findAll();
     }
 
     @PostMapping
     @PreAuthorize("hasRole('SUPER_ADMIN')")
     public Category crear(@RequestBody Category categoria) {
-        return categoryService.save(categoria);
+        return categoryRepository.save(categoria);
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('SUPER_ADMIN')")
     public ResponseEntity<Category> actualizar(@PathVariable Long id, @RequestBody Category categoria) {
-        return categoryService.findById(id)
+        return categoryRepository.findById(id)
                 .map(existingCategory -> {
                     existingCategory.setNombre(categoria.getNombre());
                     existingCategory.setDescripcion(categoria.getDescripcion());
-                    return ResponseEntity.ok(categoryService.save(existingCategory));
+                    return ResponseEntity.ok(categoryRepository.save(existingCategory));
                 })
                 .orElseGet(() -> {
                     categoria.setId(id);
-                    return ResponseEntity.ok(categoryService.save(categoria));
+                    return ResponseEntity.ok(categoryRepository.save(categoria));
                 });
     }
 
@@ -44,6 +49,6 @@ public class CategoryController {
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('SUPER_ADMIN')")
     public void eliminar(@PathVariable Long id) {
-        categoryService.deleteById(id);
+        categoryRepository.deleteById(id);
     }
 }
