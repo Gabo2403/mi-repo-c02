@@ -1,0 +1,305 @@
+type: collection.insomnia.rest/5.0
+name: Prueba con estudiantes
+meta:
+  id: wrk_3c32bf4b85764de4b37e6ee95d9cd9b6
+  created: 1750044011129
+  modified: 1750044011129
+  description: ""
+collection:
+  - name: Product
+    meta:
+      id: fld_6ca61cad90014eef9e91b02cc8f33fd7
+      created: 1750049143260
+      modified: 1750049143260
+      sortKey: -1750049143260
+      description: ""
+    children:
+      - url: "{{ _.base_url }}products"
+        name: Get all Products (auto set Token)
+        meta:
+          id: req_f067993b5bf64cc3a43c995c7d475ccd
+          created: 1719154142030
+          modified: 1750049259796
+          isPrivate: false
+          description: ""
+          sortKey: -1750049259768
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/9.1.1
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_61db8dd0dddc499d8b3dd54abce3d7dd',
+            'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        scripts:
+          preRequest: ""
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_url }}products"
+        name: New Request
+        meta:
+          id: req_49966bcad83d498086076cb2435f2082
+          created: 1750049296941
+          modified: 1750049584007
+          isPrivate: false
+          description: ""
+          sortKey: -1750049296941
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+                "name": "Logitech",
+                "description": "X pro",
+                "price": 180.00,
+                "stock": 10,
+                "category": null
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.2.0
+        authentication:
+          type: bearer
+          token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdXBlci5hZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3NTAwNDkwMTAsImV4cCI6MTc1MDA1MjYxMH0.j9r8-cEEaR-PKMm7fwDDWO_rcAsSqWEDmvA1IhCVCBc
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_url }}products/1"
+        name: New Request
+        meta:
+          id: req_3a13f8ca745046369969d189bc6e32d1
+          created: 1750050070063
+          modified: 1750051107432
+          isPrivate: false
+          description: ""
+          sortKey: -1750049297041
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "name": "Refrigerador",
+              "description": "Samsung refrigerador 2025",
+              "price": 2500.00,
+              "stock": 300,
+              "category": {
+                "id": 1
+              }
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.2.0
+        authentication:
+          type: bearer
+          token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdXBlci5hZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3NTAwNDkwMTAsImV4cCI6MTc1MDA1MjYxMH0.j9r8-cEEaR-PKMm7fwDDWO_rcAsSqWEDmvA1IhCVCBc
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_url }}products/1"
+        name: New Request
+        meta:
+          id: req_237eba464aba431c8a492063d80bd0ad
+          created: 1750050889881
+          modified: 1750051130018
+          isPrivate: false
+          description: ""
+          sortKey: -1750049297141
+        method: DELETE
+        body:
+          mimeType: application/json
+          text: ""
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.2.0
+        authentication:
+          type: bearer
+          token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdXBlci5hZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3NTAwNDkwMTAsImV4cCI6MTc1MDA1MjYxMH0.j9r8-cEEaR-PKMm7fwDDWO_rcAsSqWEDmvA1IhCVCBc
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Category
+    meta:
+      id: fld_26568276eaee476990debd7c9029b997
+      created: 1750049170556
+      modified: 1750049170556
+      sortKey: -1750049170556
+      description: ""
+    children:
+      - url: "{{ _.base_url }}categories"
+        name: Get all Users (auto set Token)
+        meta:
+          id: req_e42dbcf2ccc74551aa78e21a28a5c2e7
+          created: 1715612808452
+          modified: 1750049925830
+          isPrivate: false
+          description: ""
+          sortKey: -1750049595532
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/9.1.1
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_61db8dd0dddc499d8b3dd54abce3d7dd',
+            'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        scripts:
+          preRequest: ""
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_url }}categories"
+        name: New Request
+        meta:
+          id: req_53c8444adec44350aa384e4e8d14faed
+          created: 1750049595632
+          modified: 1750049695184
+          isPrivate: false
+          description: ""
+          sortKey: -1750049595632
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "nombre": "Cascos",
+              "descripcion": "Nuevos"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.2.0
+        authentication:
+          type: bearer
+          token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdXBlci5hZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3NTAwNDkwMTAsImV4cCI6MTc1MDA1MjYxMH0.j9r8-cEEaR-PKMm7fwDDWO_rcAsSqWEDmvA1IhCVCBc
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_url }}categories/1"
+        name: New Request
+        meta:
+          id: req_64dcd8a5f3e1460c96aadb9b8da7581a
+          created: 1750050608890
+          modified: 1750051110077
+          isPrivate: false
+          description: ""
+          sortKey: -1750049595732
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "nombre": "Electrodomesticos",
+              "descripcion": "Casa"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.2.0
+        authentication:
+          type: bearer
+          token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdXBlci5hZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3NTAwNDkwMTAsImV4cCI6MTc1MDA1MjYxMH0.j9r8-cEEaR-PKMm7fwDDWO_rcAsSqWEDmvA1IhCVCBc
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_url }}categories/1"
+        name: New Request
+        meta:
+          id: req_c6fb2d9257134bbe92e2f67e067c9ba3
+          created: 1750051132507
+          modified: 1750051191339
+          isPrivate: false
+          description: ""
+          sortKey: -1750049595832
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/11.2.0
+        authentication:
+          type: bearer
+          token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdXBlci5hZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3NTAwNDkwMTAsImV4cCI6MTc1MDA1MjYxMH0.j9r8-cEEaR-PKMm7fwDDWO_rcAsSqWEDmvA1IhCVCBc
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_d5952ed7fd2a4572ac3c94350884503c
+    created: 1726541004518
+    modified: 1726541004518
+environments:
+  name: Base Environment
+  meta:
+    id: env_8217be39fa00436ba21d534e02f9ac4c
+    created: 1726541004518
+    modified: 1726541004518
+    isPrivate: false
+  subEnvironments:
+    - name: dev
+      meta:
+        id: env_6b958e42c3844ad8bae59c41cdaa1f4a
+        created: 1715442086680
+        modified: 1715442160066
+        isPrivate: false
+        sortKey: 1715442086680
+      data:
+        base_url: http://localhost:8080/
+      color: "#11ff00"
+    - name: prod
+      meta:
+        id: env_3c0cac294b7045dd84dac9c94a18718b
+        created: 1715442102658
+        modified: 1717950400534
+        isPrivate: false
+        sortKey: 1715442102658
+      data:
+        base_url: https://demo-api-spring.azurewebsites.net/
+      color: "#ff0000"
