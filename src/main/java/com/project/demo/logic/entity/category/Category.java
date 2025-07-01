@@ -1,5 +1,7 @@
 package com.project.demo.logic.entity.category;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.project.demo.logic.entity.product.Product;
 import jakarta.persistence.*;
 import java.util.List;
@@ -12,10 +14,13 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true, length = 100)
     private String nombre;
 
+    @Column(nullable = true, length = 255)
     private String descripcion;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
     private List<com.project.demo.logic.entity.product.Product> productos;
 
