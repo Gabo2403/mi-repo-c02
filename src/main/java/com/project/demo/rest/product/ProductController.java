@@ -1,11 +1,11 @@
 package com.project.demo.rest.product;
 
+import com.project.demo.logic.entity.product.Product;
+import com.project.demo.logic.entity.product.ProductRepository;
 import com.project.demo.logic.entity.category.Category;
 import com.project.demo.logic.entity.category.CategoryRepository;
 import com.project.demo.logic.entity.http.GlobalResponseHandler;
 import com.project.demo.logic.entity.http.Meta;
-import com.project.demo.logic.entity.product.Product;
-import com.project.demo.logic.entity.product.ProductRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,9 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
-
 @RestController
 @RequestMapping("/products")
 public class ProductController {
@@ -31,7 +29,7 @@ public class ProductController {
 
     @GetMapping
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> listarTodos(
+    public ResponseEntity<?> getAll(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
             HttpServletRequest request) {
@@ -51,14 +49,14 @@ public class ProductController {
     @PostMapping
     @PreAuthorize("hasRole('SUPER_ADMIN')")
     public ResponseEntity<?> createProduct(@RequestBody Product product, HttpServletRequest request) {
-        Optional<Category> foundCategory = categoryRepository.findById(product.getCategoria().getId());
+        Optional<Category> foundCategory = categoryRepository.findById(product.getCategory().getId());
         if (foundCategory.isPresent()) {
-            product.setCategoria(foundCategory.get());
+            product.setCategory(foundCategory.get());
             productRepository.save(product);
             return new GlobalResponseHandler().handleResponse("Product created successfully",
                     product, HttpStatus.CREATED, request);
         } else {
-            return new GlobalResponseHandler().handleResponse("Category id " + product.getCategoria().getId() + " not found",
+            return new GlobalResponseHandler().handleResponse("Category id " + product.getCategory().getId() + " not found",
                     HttpStatus.NOT_FOUND, request);
         }
     }
@@ -68,15 +66,15 @@ public class ProductController {
     public ResponseEntity<?> updateProduct(@PathVariable Long productId, @RequestBody Product product, HttpServletRequest request) {
         Optional<Product> foundProduct = productRepository.findById(productId);
         if (foundProduct.isPresent()) {
-            Optional<Category> foundCategory = categoryRepository.findById(product.getCategoria().getId());
+            Optional<Category> foundCategory = categoryRepository.findById(product.getCategory().getId());
             if (foundCategory.isPresent()) {
                 product.setId(productId);
-                product.setCategoria(foundCategory.get());
+                product.setCategory(foundCategory.get());
                 productRepository.save(product);
                 return new GlobalResponseHandler().handleResponse("Product updated successfully",
                         product, HttpStatus.OK, request);
             } else {
-                return new GlobalResponseHandler().handleResponse("Category id " + product.getCategoria().getId() + " not found",
+                return new GlobalResponseHandler().handleResponse("Category id " + product.getCategory().getId() + " not found",
                         HttpStatus.NOT_FOUND, request);
             }
         } else {

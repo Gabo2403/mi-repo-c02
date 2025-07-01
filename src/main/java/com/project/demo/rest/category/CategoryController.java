@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -26,7 +25,7 @@ public class CategoryController {
 
     @GetMapping
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> listar(
+    public ResponseEntity<?> getAll(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
             HttpServletRequest request) {
@@ -57,8 +56,8 @@ public class CategoryController {
         Optional<Category> foundCategoryOpt = categoryRepository.findById(categoryId);
         if (foundCategoryOpt.isPresent()) {
             Category foundCategory = foundCategoryOpt.get();
-            foundCategory.setNombre(category.getNombre());
-            foundCategory.setDescripcion(category.getDescripcion());
+            foundCategory.setName(category.getName());
+            foundCategory.setDescription(category.getDescription());
             categoryRepository.save(foundCategory);
             return new GlobalResponseHandler().handleResponse("Category updated successfully",
                     foundCategory, HttpStatus.OK, request);

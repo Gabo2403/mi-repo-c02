@@ -1,9 +1,11 @@
 package com.project.demo.logic.entity.product;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.project.demo.logic.entity.category.Category;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.util.Date;
 
 @Table(name = "product")
 @Entity
@@ -14,78 +16,101 @@ public class Product {
     private Long id;
 
     @Column(nullable = false, length = 100)
-    private String nombre;
+    private String name;
 
     @Column(length = 255)
-    private String descripcion;
+    private String description;
 
     @Column(nullable = false)
-    private double precio;
+    private Double price;
 
-    @Column(name = "cantidadEnStock", nullable = false)
-    private int cantidadEnStock;
+    @Column(name = "stock_quantity", nullable = false)
+    private Integer stockQuantity;
 
-    @ManyToOne
+    @CreationTimestamp
+    @Column(updatable = false, name = "created_at")
+    private Date createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private Date updatedAt;
+
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
-    private Category categoria;
+    private Category category;
+
+    public Product() {}
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public Product setId(Long id) {
         this.id = id;
+        return this;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public Product setName(String name) {
+        this.name = name;
+        return this;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public Product setDescription(String description) {
+        this.description = description;
+        return this;
     }
 
-    public double getPrecio() {
-        return precio;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
+    public Product setPrice(Double price) {
+        this.price = price;
+        return this;
     }
 
-    public int getCantidadEnStock() {
-        return cantidadEnStock;
+    public Integer getStockQuantity() {
+        return stockQuantity;
     }
 
-    public void setCantidadEnStock(int cantidadEnStock) {
-        this.cantidadEnStock = cantidadEnStock;
+    public Product setStockQuantity(Integer stockQuantity) {
+        this.stockQuantity = stockQuantity;
+        return this;
     }
 
-    public Category getCategoria() {
-        return categoria;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCategoria(Category categoria) {
-        this.categoria = categoria;
+    public Product setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+        return this;
     }
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                ", precio=" + precio +
-                ", cantidadEnStock=" + cantidadEnStock +
-                ", categoria=" + categoria +
-                '}';
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public Product setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+        return this;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public Product setCategory(Category category) {
+        this.category = category;
+        return this;
     }
 }

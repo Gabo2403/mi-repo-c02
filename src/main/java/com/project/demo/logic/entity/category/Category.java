@@ -1,13 +1,17 @@
 package com.project.demo.logic.entity.category;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.project.demo.logic.entity.product.Product;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.util.Date;
 import java.util.List;
 
 @Table(name = "category")
 @Entity
+
 public class Category {
 
     @Id
@@ -15,54 +19,76 @@ public class Category {
     private Long id;
 
     @Column(nullable = false, unique = true, length = 100)
-    private String nombre;
+    private String name;
 
     @Column(nullable = true, length = 255)
-    private String descripcion;
+    private String description;
+
+    @CreationTimestamp
+    @Column(updatable = false, name = "created_at")
+    private Date createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private Date updatedAt;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
-    private List<com.project.demo.logic.entity.product.Product> productos;
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Product> products;
+
+    public Category() {}
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public Category setId(Long id) {
         this.id = id;
+        return this;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public Category setName(String name) {
+        this.name = name;
+        return this;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public Category setDescription(String description) {
+        this.description = description;
+        return this;
     }
 
-    public List<Product> getProductos() {
-        return productos;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setProductos(List<Product> productos) {
-        this.productos = productos;
+    public Category setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+        return this;
     }
 
-    @Override
-    public String toString() {
-        return "Category{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                ", productos=" + productos +
-                '}';
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public Category setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+        return this;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public Category setProducts(List<Product> products) {
+        this.products = products;
+        return this;
     }
 }
